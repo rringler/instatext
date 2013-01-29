@@ -1,26 +1,21 @@
 <h1>Sessions#callback</h1>
 
-<h3>Let's connect to Instagram.</h3>
+<h3>Almost done.</h3>
 
 <p>Awesome.  Now let's get a phone number so we can text you when someone posts.</p>
 
-<%= link_to "Ok", sessions_path(:connect), class: "btn btn-primary" %>
-
-redirect_to controller: 'feed', action: 'index'
-
-<%= form_for(resource, :as => resource_name,
-											 :url => user_path(resource_name),
-											 html: { class: "form-horizontal" }) do |f| %>
+<%= form_for :user, url: sessions_path(:create, access_token: @access_token),
+									  html: { class: "form-horizontal" } do |f| %>
   <div class="control-group">
 	  <%= f.label :phone, class: "control-label" %>
 	  <div class="controls">
-		  <%= f.email_field :phone %>
+		  <%= f.text_field :phone %>
 		</div>
 	</div>
 
 	<div class="control-group">
 		<div class="controls">
-			<%= link_to "Ok", new_user_path(resource_name), class: "btn btn-primary" %>
+			<%= link_to "Ok", sessions_path(:create), class: "btn btn-primary" %>
 		</div>
 	</div>
 <% end %>

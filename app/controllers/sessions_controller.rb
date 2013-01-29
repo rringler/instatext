@@ -8,9 +8,18 @@ class SessionsController < ApplicationController
   def callback
     response = Instagram.get_access_token(params[:code], redirect_uri: CALLBACK_URL)
     session[:access_token] = response.access_token
+    @access_token = session[:access_token]
   end
 
-  def new
-  	@access_token = session[:access_token]
+  def create
+  	# create the new user
+  	@user = User.new(params[:user])
+
+  	if @user.save
+  		flash[:success] = "Phone number saved!"
+  		#redirect_to feed_path
+  	else
+  		render 'new'
+  	end
   end
 end
