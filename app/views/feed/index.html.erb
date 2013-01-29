@@ -1,0 +1,8 @@
+<h1><%= @user.username %> feed</h1>
+
+<p><%= @feed.data.first.keys %></p>
+
+<% @feed.data.each do |post| %>
+	<img src="<%= post.images.thumbnail.url %>">
+	<p><%= post.caption.text %></p>
+<% end %>
