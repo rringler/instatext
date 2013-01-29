@@ -4,7 +4,7 @@ class FeedController < ApplicationController
 
     client = Instagram.client(access_token: session[:access_token])
     @user = client.user
-    @feed = client.user_media_feed
+    @feed = client.user_media_feed(count: 5)
     @recent_media_items = client.user_recent_media
   end
 end
