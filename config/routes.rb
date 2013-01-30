@@ -1,8 +1,9 @@
 Instatext::Application.routes.draw do
 
-  root :to => "sessions#new"
-  resources :users, only: [:new, :create]
-
-  match 'session/:action', to: 'sessions', as: :sessions
-  get "feed/index", as: :feed
+  root :to => 'sessions#new'
+  resources :users
+  resources :sessions
+  match 'session/connect', to: 'sessions#connect', as: 'session_connect'
+  match 'session/callback', to: 'sessions#callback', as: 'session_callback'
+  match 'logout', to: 'sessions#destroy', as: 'logout'
 end

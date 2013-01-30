@@ -13,7 +13,18 @@
           <%= link_to "Instatext", root_path, class: "brand" %>
           <nav>
             <ul class="nav pull-right">
-              <li class="active"><a href="#masthead">Prefs</a></li>
+              <% if current_user %>
+                <li class="active">
+                  <%= link_to "Prefs", edit_user_path(current_user) %>
+                </li>
+                <li class="active">
+                  <%= link_to "Log out", logout_path %>
+                </li>
+              <% else %>
+                <li class="active">
+                  <%= link_to "Log in", session_connect_path %>
+                </li>
+              <% end %>
             </ul>
           </nav>
         </div>
