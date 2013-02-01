@@ -2,13 +2,15 @@ class SessionsController < ApplicationController
 
 	before_filter :signed_in?, only: [:destroy]
 
-	require "instagram"
+	require 'instagram'
 	include ApplicationHelper
 
 	def new
+		redirect_to user_path(current_user)
 	end
 
 	def create
+		redirect_to user_path(current_user)
 	end
 
   def connect

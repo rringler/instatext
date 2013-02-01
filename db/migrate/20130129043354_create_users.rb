@@ -1,9 +1,11 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users do |t|
-    	t.string :access_token
-      t.string :username
-    	t.string :phone
+    	t.string  :access_token
+      t.string  :username
+    	t.string  :phone
+      t.integer :alerts
+      t.boolean :admin
 
       t.timestamps
     end
