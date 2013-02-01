@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :signed_in?, only: [:show, :edit]
+  before_filter :signed_in?, only: [:show, :edit, :update, :destroy]
 
   require 'date'
   include ApplicationHelper
@@ -27,23 +27,33 @@ class UsersController < ApplicationController
 
   def show
     @username = current_user.username
-    @feed = client(current_user.access_token).user_media_feed(count: 5)
-    #@recent_media_items = client.user_recent_media
+    @feed = client.user_media_feed(count: 5)
   end
 
   def edit
     @user = current_user
-    @follows = client(current_user.access_token).user_follows
+    @alerts = current_user.alerts
+    @follows = client.user_follows
   end
 
   def update
+    # Something is broken here.  Need to avoid the params.each if no new
+    # checkboxes are checked.
+    redirect_to user_path(current_user) if params['alerts'].nil?
+    
+    params['alerts'].each do |f|
+      args = { user_id: current_user.id,
+               instagram_id: f,
+               instagram_username: client.user(f).username }
+      current_user.alerts.create_if_new(args)
+    end
+
     redirect_to user_path(current_user)
   end
 
-  private
-
-  def client(token=current_user.access_token)
-    # reuse the existing instagram connection or make a new one
-    @client ||= instagram_client(token)
+  def destroy
+    current_user.destroy
+    sign_out
+    redirect_to root_path
   end
 end

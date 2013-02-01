@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
   
   attr_accessible :access_token, :username, :phone
 
+  has_many :alerts, dependent: :destroy
+
   validates :username, presence: true,
   										 uniqueness: true
 

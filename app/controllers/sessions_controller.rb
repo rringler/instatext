@@ -6,11 +6,6 @@ class SessionsController < ApplicationController
 	include ApplicationHelper
 
 	def new
-		redirect_to user_path(current_user)
-	end
-
-	def create
-		redirect_to user_path(current_user)
 	end
 
   def connect
@@ -20,7 +15,6 @@ class SessionsController < ApplicationController
   def callback
     response = Instagram.get_access_token(params[:code], redirect_uri: CALLBACK_URL)
     session[:access_token] = response.access_token
-    client ||= instagram_client
     username = client.user.username
 
     user = User.find_by_username(username)
@@ -28,12 +22,12 @@ class SessionsController < ApplicationController
     	redirect_to new_user_path
     else
     	session[:user_id] = user.id
-    	redirect_to user_path(current_user)
+    	redirect_to current_user
     end
   end
 
   def destroy
-  	session[:user_id] = nil
+  	sign_out
   	redirect_to root_path, notice: "Logged out."
   end
 end

@@ -11,15 +11,26 @@
 		</div>
 
 		<div class='control-group'>
-			<%= label_tag 'follows[]', 'Active alerts:', class: 'control-label' %>
+			<%= label_tag 'alerts[]', 'Alerts:', class: 'control-label' %>
 			<div class='controls'>		
 				<% @follows.each do |f| %>
 					<label class='checkbox'>
-						<%= check_box_tag 'follows[]',
-															f.username,
-															false,
-															class: 'control-group' %>
-						<%= f.username %>
+						<% args = { user_id: @user.id, instagram_id: f.id } %>
+						<% if @alerts.where(instagram_id: f.id).any? %>
+							<%= check_box_tag 'alerts[]',
+																nil,
+																true,
+																disabled: true,
+																class: 'control-group' %>
+							#<%= f.username %>
+							<%= link_to 'delete', user_alert_path(@user, f), method: :delete %>
+						<% else %>
+							<%= check_box_tag 'alerts[]',
+																f.id,
+																@user.alerts.alert_exists?(args),
+																class: 'control-group' %>
+							#<%= f.username %>
+						<% end %>
 					</label>
 				<% end %>
 			</div>
@@ -27,7 +38,11 @@
 
 		<div class='control-group'>
 			<div class='controls'>
-				<%= submit_tag 	'Update alerts', class:'btn' %>
+				<%= submit_tag 	'Update account', class:'btn' %>
+				<%= link_to 'Delete my account', user_path(@user),
+																				 method: :delete,
+																				 data: { confirm: 'Are you sure?' },
+																				 class: 'btn' %>
 			</div>
 		</div>
 	</div>
