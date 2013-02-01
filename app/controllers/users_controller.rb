@@ -39,16 +39,17 @@ class UsersController < ApplicationController
   def update
     # Something is broken here.  Need to avoid the params.each if no new
     # checkboxes are checked.
-    redirect_to user_path(current_user) if params['alerts'].nil?
     
-    params['alerts'].each do |f|
-      args = { user_id: current_user.id,
-               instagram_id: f,
-               instagram_username: client.user(f).username }
-      current_user.alerts.create_if_new(args)
+    if params.keys.include?('alerts')
+      params['alerts'].each do |f|
+        args = { user_id: current_user.id,
+                 instagram_id: f,
+                 instagram_username: client.user(f).username }
+        current_user.alerts.create_if_new(args)
+      end
     end
 
-    redirect_to user_path(current_user)
+    redirect_to edit_user_path(current_user)
   end
 
   def destroy

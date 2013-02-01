@@ -16,14 +16,17 @@
 				<% @follows.each do |f| %>
 					<label class='checkbox'>
 						<% args = { user_id: @user.id, instagram_id: f.id } %>
-						<% if @alerts.where(instagram_id: f.id).any? %>
+						<% existing_alert = @alerts.find_by_instagram_id(f.id) %>
+						<% if existing_alert %>
 							<%= check_box_tag 'alerts[]',
 																nil,
 																true,
 																disabled: true,
 																class: 'control-group' %>
 							#<%= f.username %>
-							<%= link_to 'delete', user_alert_path(@user, f), method: :delete %>
+							<%= link_to 'delete', user_alert_path(@user, existing_alert.id),
+																		method: :delete,
+																		class: 'btn' %>
 						<% else %>
 							<%= check_box_tag 'alerts[]',
 																f.id,
