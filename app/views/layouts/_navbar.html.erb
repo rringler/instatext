@@ -1,0 +1,18 @@
+<div class='navbar navbar-fixed-top navbar-inverse'>
+  <div class='navbar-inner'>
+    <div class='container'>
+      <%= link_to 'Instatext', root_path, class: 'brand' %>
+      <nav>
+        <ul class='nav pull-right'>
+          <% if current_user %>
+            <li><%= link_to 'Feed', user_path(current_user) %></li>
+            <li><%= link_to 'Prefs', edit_user_path(current_user) %></li>
+            <li><%= link_to 'Log out', logout_path %></li>
+          <% else %>
+            <li><%= link_to 'Log in', session_connect_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
