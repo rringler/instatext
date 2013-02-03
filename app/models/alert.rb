@@ -15,4 +15,8 @@ class Alert < ActiveRecord::Base
 	def self.alert_exists?(args)
 		find_by_user_id_and_instagram_id(args[:user_id], args[:instagram_id])
 	end
+
+	def notify_user
+		# TODO.  Add twilio code.
+	end
 end

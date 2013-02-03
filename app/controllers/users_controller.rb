@@ -13,10 +13,11 @@ class UsersController < ApplicationController
     params[:user][:access_token] = session[:access_token]
     params[:user][:username] = client.user.username
   	user = User.create_from_params(params[:user])
+    sub = Instagram.create_subscription('user', ENV['SUBSCRIPTION_CALLBACK_URL'])
 
     # if the user saves set @current_user and redirect to feed,
     # else show the phone number form again
-  	if user
+  	if user && sub
   		flash[:success] = "Phone number saved!"
       session[:user_id] = user.id
   		redirect_to user_path(current_user)
@@ -37,9 +38,6 @@ class UsersController < ApplicationController
   end
 
   def update
-    # Something is broken here.  Need to avoid the params.each if no new
-    # checkboxes are checked.
-    
     if params.keys.include?('alerts')
       params['alerts'].each do |f|
         args = { user_id: current_user.id,

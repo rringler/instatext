@@ -11,6 +11,10 @@ module ApplicationHelper
   	redirect_to new_session_path unless current_user
   end
 
+  def signed_out?
+    redirect_to user_path(current_user) if current_user
+  end
+
   def sign_out
   	session[:user_id] = nil
     @current_user = nil

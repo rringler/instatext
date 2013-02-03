@@ -1,6 +1,7 @@
 class SessionsController < ApplicationController
 
 	before_filter :signed_in?, only: [:destroy]
+  before_filter :signed_out?, only: [:new, :connect]
 
 	require 'instagram'
 	include ApplicationHelper

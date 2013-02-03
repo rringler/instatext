@@ -1,19 +1,12 @@
-<h1><%= @username %>'s feed</h1>
-
-<!--
-<p>@feed.data.keys: <%= @feed.data.first.keys %></p>
-<p>@feed.data.images.keys: <%= @feed.data.first.images.keys %></p>
--->
+<div class='page-header'>
+	<h1>#<%= @username %>'s feed</h1>
+</div>
 
 <% @feed.data.each do |post| %>
-	<div class="post well">
-
-		<h3>
-			<small><%= time_ago_in_words(Time.at(post.created_time.to_f)) %> ago</small>
-			#<%= post.user.username %>
-			<small>said...</small>
-		</h3>
-		<img src="<%= post.images.standard_resolution.url %>">
-		<p><%= post.caption.text %></p>
+	<% post_time = time_ago_in_words(Time.at(post.created_time.to_f)) + ' ago' %>
+	<div class='post' div-text='<%= post_time %>'>
+		<h2>#<%= post.user.username %> <small>said...</small></h2>
+		<img src='<%= post.images.standard_resolution.url %>'>
+		<p class='comment'><%= post.caption.text %></p>
 	</div>
 <% end %>

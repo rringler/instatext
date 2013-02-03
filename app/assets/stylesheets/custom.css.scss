@@ -38,3 +38,39 @@ html, body {
 	max-width: 90%;
 	margin: 40px 40px;
 }
+
+.post { 
+  background-color: #FFFFFF;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px;
+  margin: 15px auto 0px;
+  padding: 39px 19px 14px;
+  position: relative;
+  max-width: 692px;
+
+
+  img {
+    display: block;
+    margin: 0 auto;
+  }
+
+  .comment {
+    margin: 15px auto 0;
+    max-width: 612px;
+  }
+}
+
+.post:after { 
+  background-color: #F5F5F5;
+  border: 1px solid #DDDDDD;
+  border-radius: 4px 0px;
+  color: #9DA0A4;
+  content: attr(div-text);
+  /* content: "Example"; */
+  font-size: 12px;
+  font-weight: 700;
+  left: -1px;
+  padding: 3px 7px;
+  position: absolute;
+  top: -1px;
+}
