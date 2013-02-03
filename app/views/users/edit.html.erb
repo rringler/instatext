@@ -8,7 +8,7 @@
 		<div class='control-group'>
 			<%= label_tag 'phone', 'Phone:', class: 'control-label' %>
 			<div class='controls'>
-				<%= text_field_tag 'phone', @user.phone %>
+				<%= text_field_tag 'phone', @user.phone, class: 'input-medium' %>
 			</div>
 		</div>
 
@@ -28,7 +28,7 @@
 							#<%= f.username %>
 							<%= link_to 'delete', user_alert_path(@user, existing_alert.id),
 																		method: :delete,
-																		class: 'btn' %>
+																		class: 'delete-alert' %>
 						<% else %>
 							<%= check_box_tag 'alerts[]',
 																f.id,
@@ -43,7 +43,7 @@
 
 		<div class='control-group'>
 			<div class='controls'>
-				<%= submit_tag 	'Update account', class:'btn' %>
+				<%= submit_tag 	'Update account', class:'btn btn-primary btn-fix' %>
 				<%= link_to 'Delete my account', user_path(@user),
 																				 method: :delete,
 																				 data: { confirm: 'Are you sure?' },

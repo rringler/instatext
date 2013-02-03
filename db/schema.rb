@@ -17,10 +17,12 @@ ActiveRecord::Schema.define(:version => 20130201025725) do
     t.integer  "user_id"
     t.integer  "instagram_id"
     t.string   "instagram_username"
+    t.datetime "last_post"
     t.datetime "created_at",         :null => false
     t.datetime "updated_at",         :null => false
   end
 
+  add_index "alerts", ["last_post"], :name => "index_alerts_on_last_post"
   add_index "alerts", ["user_id"], :name => "index_alerts_on_user_id"
 
   create_table "users", :force => true do |t|

@@ -13,10 +13,9 @@ class UsersController < ApplicationController
     params[:user][:access_token] = session[:access_token]
     params[:user][:username] = client.user.username
   	user = User.create_from_params(params[:user])
-    sub = Instagram.create_subscription('user', ENV['SUBSCRIPTION_CALLBACK_URL'])
+    url = ENV['SUBSCRIPTION_CALLBACK_URL']
+    sub = client.create_subscription('user', url)
 
-    # if the user saves set @current_user and redirect to feed,
-    # else show the phone number form again
   	if user && sub
   		flash[:success] = "Phone number saved!"
       session[:user_id] = user.id
