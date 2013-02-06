@@ -7,8 +7,8 @@ Instatext::Application.routes.draw do
   resources :sessions
   match 'session/connect', to: 'sessions#connect', as: 'session_connect'
   match 'session/callback', to: 'sessions#callback', as: 'session_callback'
-  match 'process_post', to: 'alerts#process_post',
+  match 'webhook', to: 'alerts#webhook',
   											via: [:get, :post],
-  											as: 'process_post'
+  											as: 'webhook'
   match 'logout', to: 'sessions#destroy', as: 'logout'
 end
