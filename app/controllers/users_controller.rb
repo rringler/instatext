@@ -14,10 +14,10 @@ class UsersController < ApplicationController
     params[:user][:username] = client.user.username
   	user = User.create_from_params(params[:user])
     url = ENV['SUBSCRIPTION_CALLBACK_URL']
-    options = { client_secret: ENV['INSTAGRAM_CLIENT_SECRENT'] }
-    sub = client.create_subscription('user', url, options)
+    #options = { client_secret: ENV['INSTAGRAM_CLIENT_SECRENT'] }
+    #sub = client.create_subscription('user', url, options)
 
-  	if user && sub
+  	if user #&& sub
   		flash[:success] = "Phone number saved!"
       session[:user_id] = user.id
   		redirect_to user_path(current_user)
