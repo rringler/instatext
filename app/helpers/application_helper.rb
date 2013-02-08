@@ -19,4 +19,12 @@ module ApplicationHelper
   	session[:user_id] = nil
     @current_user = nil
   end
+
+  def instagram_auth_callback_url
+    @instagram_auth_callback_url ||= ENV['INSTAGRAM_AUTH_CALLBACK_URL']
+  end
+
+  def instagram_subscription_callback_url
+    @instagram_subscription_callback_url ||= ENV['INSTAGRAM_SUBSCRIPTION_CALLBACK_URL']
+  end
 end

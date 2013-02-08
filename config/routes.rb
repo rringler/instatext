@@ -5,10 +5,13 @@ Instatext::Application.routes.draw do
   	resources :alerts
   end
   resources :sessions
-  match 'session/connect', to: 'sessions#connect', as: 'session_connect'
-  match 'session/callback', to: 'sessions#callback', as: 'session_callback'
-  match 'webhook', to: 'alerts#webhook',
-  											via: [:get, :post],
-  											as: 'webhook'
+  match 'connect', to: 'sessions#connect', as: 'connect'
+  match 'auth_callback', to: 'sessions#auth_callback', as: 'auth_callback'
+  match 'sub_callback', to: 'alerts#sub_callback_get', via: :get
+  match 'sub_callback', to: 'alerts#sub_callback_post', via: :post
   match 'logout', to: 'sessions#destroy', as: 'logout'
+
+  # Temp while debugging subscription creation
+  match 'create_sub', to: 'alerts#create_sub'
+  match 'list_subs', to: 'alerts#list_subs'
 end

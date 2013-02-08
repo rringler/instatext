@@ -13,7 +13,7 @@ class UsersController < ApplicationController
     params[:user][:access_token] = session[:access_token]
     params[:user][:username] = client.user.username
   	user = User.create_from_params(params[:user])
-    url = ENV['SUBSCRIPTION_CALLBACK_URL']
+    #url = ENV['INSTAGRAM_SUBSCRIPTION_CALLBACK_URL']
     #options = { client_secret: ENV['INSTAGRAM_CLIENT_SECRENT'] }
     #sub = client.create_subscription('user', url, options)
 
