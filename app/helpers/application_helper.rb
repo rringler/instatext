@@ -24,7 +24,7 @@ module ApplicationHelper
     @instagram_auth_callback_url ||= ENV['INSTAGRAM_AUTH_CALLBACK_URL']
   end
 
-  def instagram_subscription_callback_url
-    @instagram_subscription_callback_url ||= ENV['INSTAGRAM_SUBSCRIPTION_CALLBACK_URL']
+  def instagram_sub_callback_url
+    @instagram_sub_callback_url ||= ENV['INSTAGRAM_SUB_CALLBACK_URL']
   end
 end

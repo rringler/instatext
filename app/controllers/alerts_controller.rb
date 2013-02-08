@@ -24,7 +24,7 @@ class AlertsController < ApplicationController
   def create_sub
 	  #url = ENV['SUBSCRIPTION_CALLBACK_URL']
 	  #options = { client_secret: ENV['INSTAGRAM_CLIENT_SECRENT'] }
-    sub = client.create_subscription('user', instagram_subscription_callback_url)
+    sub = client.create_subscription('user', instagram_sub_callback_url)
   end
 
   def list_subs
