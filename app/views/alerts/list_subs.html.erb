@@ -1,0 +1,11 @@
+<h1>Alerts#list_subs</h1>
+
+<% @subs.each do |sub| %>
+	<div class='well'>
+		<ul>
+			<% sub.each do |key, value| %>
+				<li><%= key %>:<%= value %></li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>

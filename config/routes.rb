@@ -13,5 +13,6 @@ Instatext::Application.routes.draw do
 
   # Temp while debugging subscription creation
   match 'create_sub', to: 'alerts#create_sub'
-  match 'list_subs', to: 'alerts#list_subs'
+  match 'list_subs', to: 'alerts#list_subs', as: 'list_subs'
+  match 'clear_subs', to: 'alerts#clear_subs'
 end

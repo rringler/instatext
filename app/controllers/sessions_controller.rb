@@ -10,12 +10,12 @@ class SessionsController < ApplicationController
 	end
 
   def connect
-    redirect_to Instagram.authorize_url(redirect_uri: instagram_auth_callback_url)
+    redirect_to Instagram.authorize_url(redirect_uri: get_url(:auth_callback))
   end
 
   def auth_callback
     response = Instagram.get_access_token(params[:code],
-                                          redirect_uri: instagram_auth_callback_url)
+                                          redirect_uri: get_url(:auth_callback))
     session[:access_token] = response.access_token
     username = client.user.username
 
