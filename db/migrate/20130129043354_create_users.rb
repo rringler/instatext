@@ -4,8 +4,8 @@ class CreateUsers < ActiveRecord::Migration
     	t.string  :access_token
       t.string  :username
     	t.string  :phone
-      t.integer :alerts
-      t.boolean :admin
+      t.integer :max_alerts, default: 0
+      t.boolean :admin, default: false
 
       t.timestamps
     end

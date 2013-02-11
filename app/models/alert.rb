@@ -16,7 +16,7 @@ class Alert < ActiveRecord::Base
 		find_by_user_id_and_instagram_id(args[:user_id], args[:instagram_id])
 	end
 
-	def notify_user
-		# TODO.  Add twilio code.
+	def set_max_alerts(alerts)
+		max_alerts = alerts
 	end
 end

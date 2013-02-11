@@ -29,10 +29,10 @@ ActiveRecord::Schema.define(:version => 20130201025725) do
     t.string   "access_token"
     t.string   "username"
     t.string   "phone"
-    t.integer  "alerts"
-    t.boolean  "admin"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
+    t.integer  "max_alerts",   :default => 0
+    t.boolean  "admin",        :default => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
   end
 
   add_index "users", ["phone"], :name => "index_users_on_phone", :unique => true

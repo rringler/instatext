@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails'
 gem 'instagram'
-gem 'delayed_job_active_record'
+gem 'twilio-ruby'
 gem 'jquery-rails'
 
 group :production do

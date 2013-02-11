@@ -1,6 +1,16 @@
 module ApplicationHelper
-  def client(token=session[:access_token])
-    @client ||= Instagram.client(access_token: token)
+  def instagram_client(token=session[:access_token])
+    @instagram_client ||= Instagram.client(access_token: token)
+  end
+
+  def twilio_client
+    if @twilio_client
+      @twilio_client
+    else
+      account_sid = ENV['TWILIO_ACCOUNT_SID']
+      auth_token = ENV['TWILIO_AUTH_TOKEN']
+      @twilio_client = Twilio::REST::Client.new account_sid, auth_token
+    end
   end
 
 	def current_user

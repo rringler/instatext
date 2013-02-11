@@ -5,6 +5,7 @@
       <nav>
         <ul class='nav pull-right'>
           <% if current_user %>
+            <li><%= link_to 'Notify User', notify_user_path %></li>
             <li><%= link_to 'Feed', user_path(current_user) %></li>
             <li><%= link_to 'Prefs', edit_user_path(current_user) %></li>
             <li><%= link_to 'Log out', logout_path %></li>

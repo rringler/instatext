@@ -15,4 +15,5 @@ Instatext::Application.routes.draw do
   match 'create_sub', to: 'alerts#create_sub'
   match 'list_subs', to: 'alerts#list_subs', as: 'list_subs'
   match 'clear_subs', to: 'alerts#clear_subs'
+  match 'notify_user', to: 'alerts#notify_user', as: 'notify_user'
 end

@@ -17,7 +17,7 @@ class SessionsController < ApplicationController
     response = Instagram.get_access_token(params[:code],
                                           redirect_uri: get_url(:auth_callback))
     session[:access_token] = response.access_token
-    username = client.user.username
+    username = instagram_client.user.username
 
     user = User.find_by_username(username)
     if user.nil?

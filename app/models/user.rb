@@ -18,4 +18,17 @@ class User < ActiveRecord::Base
   		user.phone				= params["phone"]
   	end
   end
+
+  def notify!(twilio_client)
+    options = {
+      from: '+14155992671',
+      to: '+1' << phone,
+      body: 'New post!'
+    }
+    twilio_client.account.sms.messages.create(options)
+  end
+
+  def available_alerts?
+    self.alerts.size < max_alerts
+  end
 end
