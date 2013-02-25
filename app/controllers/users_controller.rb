@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   def create
     params[:user][:access_token] = session[:access_token]
     params[:user][:username] = instagram_client.user.username
-  	user = User.create_from_params(params[:user])
+  	user = User.create_from_params(permitted_params.user)
     #sub = instagram_client.create_subscription('user', url, options)
 
   	if user #&& sub

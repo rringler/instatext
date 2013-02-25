@@ -1,6 +1,6 @@
 class Alert < ActiveRecord::Base
 	
-	attr_accessible :user_id, :instagram_id, :instagram_username
+	#attr_accessible :user_id, :instagram_id, :instagram_username
 
 	belongs_to :user, foreign_key: :user_id
 
@@ -17,6 +17,6 @@ class Alert < ActiveRecord::Base
 	end
 
 	def set_max_alerts(alerts)
-		max_alerts = alerts
+		self.max_alerts = alerts
 	end
 end

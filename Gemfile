@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'rails'
+gem 'strong_parameters'
 gem 'instagram'
 gem 'twilio-ruby'
 gem 'jquery-rails'
