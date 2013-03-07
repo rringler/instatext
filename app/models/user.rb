@@ -20,21 +20,17 @@ class User < ActiveRecord::Base
   end
 
   def set_max_alerts(alerts, auth)
-    today_int = Date.today.strftime('%Y%m%d').to_i
-    rails_int = ENV['SECRET_TOKEN'].unpack('L').join.to_i
-
-    auth_token =  today_int | rails_int
-    
-    if auth == auth_token 
+    if current_user.admin?
       max_alerts = alerts
       save
     end
   end
 
+  # Unused?
+  #def self.from_params(params)
+  #  where(params.slice("username")).first
+  #end
 
-  def self.from_params(params)
-    where(params.slice("username")).first
-  end
 
   def self.create_from_params(params)
     create! do |user|
@@ -44,10 +40,10 @@ class User < ActiveRecord::Base
     end
   end
 
-  def self.generate_auth_token
-    today_int = Date.today.strftime('%Y%m%d').to_i
-    rails_int = ENV['SECRET_TOKEN'].unpack('L').join.to_i
+  #def self.generate_auth_token
+  #  today_int = Date.today.strftime('%Y%m%d').to_i
+  #  rails_int = ENV['SECRET_TOKEN'].unpack('L').join.to_i
 
-    auth_token =  today_int | rails_int
-  end
+  #  auth_token =  today_int | rails_int
+  #end
 end
