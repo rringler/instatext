@@ -40,6 +40,7 @@ class UsersController < ApplicationController
         args = { user_id: current_user.id,
                  instagram_id: f,
                  instagram_username: instagram_client.user(f).username }
+
         if current_user.available_alerts?
           current_user.alerts.create_if_new(args)
         else

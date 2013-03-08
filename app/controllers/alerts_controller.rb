@@ -14,12 +14,11 @@ class AlertsController < ApplicationController
         logger.debug "**** Alerts#sub_callback_post: #{user_id}"
         logger.debug "**** Alerts#sub_callback_post: #{data}"
 
-  		  # TODO
-  		 	# if Alert.where(instagram_id: user_id).any?
-  		 	# 	Alert.where(instagram_id: user_id).each do |alert|
-  		 	# 		#Alert.notify_user
-  		 	# 	end
-  		 	# end
+  		 	if Alert.where(instagram_id: user_id).any?
+          Alert.where(instagram_id: user_id).users.each do |user|
+            user.notify(twilio_client)
+          end
+        end
 	  	end
   	end
   end
