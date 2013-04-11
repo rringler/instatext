@@ -18,10 +18,8 @@ if !Rails.env.production?
 	ENV['INSTAGRAM_CLIENT_SECRET'] = 'instagram client secret key'
 	ENV['INSTAGRAM_AUTH_CALLBACK_URL'] = 'http://publicly-reachable-url/auth_callback'
 	ENV['INSTAGRAM_SUB_CALLBACK_URL'] = 'http://publicly-reachable-url/sub_callback'
-
 	ENV['TWILIO_ACCOUNT_SID'] = 'twilio account SID'
 	ENV['TWILIO_AUTH_TOKEN'] = 'twilio auth token'
-	
 	ENV['SECRET_TOKEN'] = 'rails secret token'
 end
 ```
