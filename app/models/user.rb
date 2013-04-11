@@ -28,6 +28,12 @@ class User < ActiveRecord::Base
     twilio_client.account.sms.messages.create(options)
   end
 
+  def create_alert_if_available(id, username)
+    Alert.create_if_unique(user_id: self.id,
+                           instagram_id: id,
+                           instagram_username: username) if available_alerts?
+  end
+
   def available_alerts?
     alerts.size < max_alerts
   end

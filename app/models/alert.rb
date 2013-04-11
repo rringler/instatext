@@ -8,7 +8,7 @@ class Alert < ActiveRecord::Base
 	validates :instagram_id, presence: true
 	validates :instagram_username, presence: true
 
-	def self.create_if_new(args)
+	def self.create_if_unique(args)
 		create!(args) unless find_by_instagram_id(args[:instagram_id])
 	end
 
