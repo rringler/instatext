@@ -47,6 +47,8 @@ Spork.prefork do
     #     --seed 1234
     config.order = "random"
 
+    config.include SpecHelpers
+
     config.before(:each) do
       DatabaseCleaner.start
     end

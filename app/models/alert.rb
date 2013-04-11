@@ -15,8 +15,4 @@ class Alert < ActiveRecord::Base
 	def self.alert_exists?(args)
 		find_by_user_id_and_instagram_id(args[:user_id], args[:instagram_id])
 	end
-
-	def set_max_alerts(alerts)
-		self.max_alerts = alerts
-	end
 end

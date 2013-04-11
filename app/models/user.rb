@@ -29,13 +29,11 @@ class User < ActiveRecord::Base
   end
 
   def available_alerts?
-    self.alerts.size < max_alerts
+    alerts.size < max_alerts
   end
 
-  def set_max_alerts(alerts, auth)
-    if current_user.admin?
-      max_alerts = alerts
-      save
-    end
+  def set_max_alerts!(alerts)
+    max_alerts = alerts
+    save
   end
 end
