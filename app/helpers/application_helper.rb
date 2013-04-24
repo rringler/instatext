@@ -32,10 +32,10 @@ module ApplicationHelper
 
   def get_url(url)
     case url
-      when :auth_callback
-        @instagram_auth_callback_url ||= ENV['INSTAGRAM_AUTH_CALLBACK_URL']
-      when :sub_callback
-        @instagram_sub_callback_url ||= ENV['INSTAGRAM_SUB_CALLBACK_URL']
+    when :auth_callback
+      @instagram_auth_callback_url ||= ENV['INSTAGRAM_AUTH_CALLBACK_URL']
+    when :sub_callback
+      @instagram_sub_callback_url ||= ENV['INSTAGRAM_SUB_CALLBACK_URL']
     end
   end
 end

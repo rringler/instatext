@@ -24,24 +24,21 @@ describe Alert do
 
 		describe '#create_if_available' do 
 
-			context 'if the user has available alerts' do
+			it 'creates a new alert if the alert is unique' do
+				user = FactoryGirl.create(:user_with_alerts)
+				args = { 	user_id: 1, 
+									instagram_id: 0001,
+									instagram_username: 'test_user' }
+				user.alerts.create_if_unique(args).should_not be_nil
+			end
 
-				it 'creates a new alert if the alert is unique' do
-					user = FactoryGirl.create(:user_with_alerts)
-					args = { 	user_id: 1, 
-										instagram_id: 0001,
-										instagram_username: 'test_user' }
-					user.alerts.create_if_unique(args).should_not be_nil
-				end
-
-				it 'does not create a new alert if the alert is not unique' do
-					user = FactoryGirl.create(:user_with_alerts)
-					args = { 	user_id: 1, 
-										instagram_id: 0001,
-										instagram_username: 'test_user' }
-					user.alerts.create_if_unique(args)
-					user.alerts.create_if_unique(args).should be_nil
-				end
+			it 'does not create a new alert if the alert is not unique' do
+				user = FactoryGirl.create(:user_with_alerts)
+				args = { 	user_id: 1, 
+									instagram_id: 0001,
+									instagram_username: 'test_user' }
+				user.alerts.create_if_unique(args)
+				user.alerts.create_if_unique(args).should be_nil
 			end
 		end
 
