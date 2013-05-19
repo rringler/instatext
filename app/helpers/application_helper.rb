@@ -14,7 +14,7 @@ module ApplicationHelper
   end
 
 	def current_user
-  	@current_user ||= User.find(session[:user_id]) if session[:user_id]
+  	@current_user ||= User.find_by_id(cookies[:user_id])
   end
 
 	def signed_in?
@@ -25,9 +25,24 @@ module ApplicationHelper
     redirect_to user_path(current_user) if current_user
   end
 
+  def sign_in(user)
+    if user.nil?
+      redirect_to new_user_path
+    else
+      @user = User.find_by_id(user.id)
+      cookies.permanent[:user_id] = @user.id
+      current_user
+    end
+  end
+
   def sign_out
-  	session[:user_id] = nil
+  	cookies.delete(:user_id)
     @current_user = nil
+  end
+
+  def correct_user?
+    @user = User.find_by_id(params[:id])
+    redirect_to current_user unless current_user == @user
   end
 
   def get_url(url)

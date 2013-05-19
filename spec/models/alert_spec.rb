@@ -6,7 +6,6 @@ describe Alert do
 	end
 
 	describe 'validations' do 
-
 		it 'is invalid without a user_id' do
 			FactoryGirl.build(:alert, user_id: nil).should_not be_valid
 		end
@@ -21,43 +20,39 @@ describe Alert do
 	end
 
 	describe 'methods' do
+		let(:alert_details) { { user_id: 1,
+														instagram_id: 0001,
+														instagram_username: 'test_user' } }
 
-		describe '#create_if_available' do 
-
-			it 'creates a new alert if the alert is unique' do
-				user = FactoryGirl.create(:user_with_alerts)
-				args = { 	user_id: 1, 
-									instagram_id: 0001,
-									instagram_username: 'test_user' }
-				user.alerts.create_if_unique(args).should_not be_nil
+		describe '#find_or_create' do
+			context 'when the alert is unique' do
+				it 'creates a new alert' do
+					Alert.first_or_create(alert_details)
+					Alert.where(alert_details).size.should eq 1
+				end
 			end
 
-			it 'does not create a new alert if the alert is not unique' do
-				user = FactoryGirl.create(:user_with_alerts)
-				args = { 	user_id: 1, 
-									instagram_id: 0001,
-									instagram_username: 'test_user' }
-				user.alerts.create_if_unique(args)
-				user.alerts.create_if_unique(args).should be_nil
+			context 'when the alert is not unique' do
+				it 'does not create a new alert' do
+					Alert.first_or_create(alert_details)
+					Alert.first_or_create(alert_details)
+					Alert.where(alert_details).should_not eq 2
+				end
 			end
 		end
 
 		describe '#alert_exists?' do
-			it 'returns true if the alert already exists' do
-				user = FactoryGirl.create(:user_with_alerts)
-				args = { 	user_id: 1, 
-									instagram_id: 0001,
-									instagram_username: 'test_user' }
-				user.alerts.create_if_unique(args)
-				Alert.alert_exists?(args).should be_true
+			context 'when the alert already exists' do
+				it 'returns true' do
+					Alert.first_or_create(alert_details)
+					Alert.alert_exists?(alert_details).should be_true
+				end
 			end
 
-			it 'returns false if the alert does not already exist' do
-				user = FactoryGirl.create(:user_with_alerts)
-				args = { 	user_id: 1, 
-									instagram_id: 0001,
-									instagram_username: 'test_user' }
-				Alert.alert_exists?(args).should be_false
+			context 'when the alert does not already exist' do
+				it 'returns false' do
+					Alert.alert_exists?(alert_details).should be_false
+				end
 			end
 		end
 	end

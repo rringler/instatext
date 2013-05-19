@@ -1,9 +1,9 @@
 FactoryGirl.define do
 	factory :alert do
-		association :user
+		#association :user
 
 		user_id 1
-		instagram_id '001'
-		instagram_username 'test_user'
+		sequence(:instagram_id) { |n| "%03d" % n }
+		sequence(:instagram_username) { |n| "test_user%04d" % n }
 	end
 end

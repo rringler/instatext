@@ -28,10 +28,12 @@ class User < ActiveRecord::Base
     twilio_client.account.sms.messages.create(options)
   end
 
-  def create_alert_if_available(id, username)
-    Alert.create_if_unique(user_id: self.id,
-                           instagram_id: id,
-                           instagram_username: username) if available_alerts?
+  def create_alert_if_available(instagram_id, instagram_username)
+    alert_details = { user_id: id,
+                      instagram_id: instagram_id,
+                      instagram_username: instagram_username }
+
+    alerts << Alert.find_or_create(alert_details) if available_alerts?
   end
 
   def available_alerts?
@@ -41,5 +43,15 @@ class User < ActiveRecord::Base
   def set_max_alerts!(alerts)
     max_alerts = alerts
     save
+  end
+
+  def get_access_token(code)
+    response = Instagram.get_access_token(code, redirect_uri: get_url(:auth_callback))
+    response.access_token
+  end
+
+  def find_by_instagram_code(code)
+    respose = get_access_token(code)
+    find_by_access_token(response.access_token)
   end
 end

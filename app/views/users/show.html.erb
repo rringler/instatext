@@ -2,7 +2,7 @@
 	<h1>#<%= @username %>'s feed</h1>
 </div>
 
-<% @feed.data.each do |post| %>
+<% @feed.each do |post| %>
 	<% post_time = time_ago_in_words(Time.at(post.created_time.to_f)) + ' ago' %>
 	<div class='post' div-text='<%= post_time %>'>
 		<h2>#<%= post.user.username %> <small>said...</small></h2>

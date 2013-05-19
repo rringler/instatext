@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :signed_in?, only: [:show, :edit, :update, :destroy]
+  before_filter :correct_user?, only: [:show, :update, :destroy]
 
   require 'date'
   include ApplicationHelper
@@ -9,15 +10,16 @@ class UsersController < ApplicationController
   end
 
   def create
-    params[:user][:access_token] = session[:access_token]
+    params[:user][:access_token] = cookies[:access_token]
     params[:user][:username] = instagram_client.user.username
-  	user = User.create_from_params(permitted_params.user)
-    #sub = instagram_client.create_subscription('user', url, options)
+  	user = User.new(permitted_params.user)
 
-  	if user #&& sub
+  	if user.valid? #&& subcribe
+      user.save
   		flash[:success] = 'Phone number saved!'
-      session[:user_id] = user.id
-  		redirect_to user_path(current_user)
+      sign_in(user)
+
+      #subscribe = instagram_client.create_subscription('user', url, options)
   	else
       render 'new'
   	end
@@ -35,17 +37,14 @@ class UsersController < ApplicationController
   end
 
   def update
-    if params.keys.include?('alerts')
-      params['alerts'].each do |f|
-        args = { user_id: current_user.id,
-                 instagram_id: f,
-                 instagram_username: instagram_client.user(f).username }
+    if @user.update_attributes(params[:user])
+      flash[:success] = "Profile updated"
+    end
 
-        if current_user.available_alerts?
-          current_user.alerts.create_if_new(args)
-        else
-          flash[:error] = 'Exceeded maximum number of alerts.'
-        end
+    if params.keys.include?('alerts')
+      params['alerts'].each do |instagram_id|
+        instagram_username = instagram_client.user(instagram_id).username
+        @user.create_alert_if_available(instagram_id, instagram_username)
       end
     end
 
